@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { AssistenteButton } from "@/components/customComponents/AssistentButton";
+import Navbar from "@/components/logedComponents/navbar";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -25,6 +26,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${poppins.variable} h-full antialiased`}
     >
+      <Navbar />
       <AssistenteButton />
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
