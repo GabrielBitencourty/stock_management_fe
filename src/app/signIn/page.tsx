@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function SignInPage() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#eef2f5]">
+    <main className="flex min-h-screen items-center justify-center bg-var(--background)">
       <Card className="grid h-160 w-full max-w-7xl overflow-hidden rounded-2xl p-0 m-0 border-0 shadow-[0_20px_60px_rgba(0,0,0,0.12)] md:grid-cols-2">
         <section className="flex items-center  bg-linear-to-br from-[#67A8B6] via-[#5C9EAD] to-[#4E8D9A] px-24">
             <div className="w-full max-w-lg flex flex-col gap-5">
