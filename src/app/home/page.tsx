@@ -1,3 +1,4 @@
+import Navbar from "@/components/logedComponents/navbar";
 import SideMenu from "@/components/logedComponents/sideMenu";
 
 export default function HomePage() {
@@ -5,6 +6,7 @@ export default function HomePage() {
         <main className="flex items-center justify-center">
             <div>
                 <SideMenu />
+                <Navbar />
             </div>
             <h1 className="flex items-center justify-center text-5xl">Welcome!</h1>
         </main>
