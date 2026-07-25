@@ -40,15 +40,6 @@ export default function SignInPage() {
             <p className="text-lg leading-relaxed text-[#EDF0DA]/90">
               To keep connected with us, please login with your account.
             </p>
-
-            <Button
-              variant="outline"
-              className="h-11 w-40 rounded-full border-white bg-transparent font-semibold text-white transition-all hover:bg-white hover:text-[#5C9EAD]"
-            >
-              <Link href="/signUp">
-                Sign Up
-              </Link>
-            </Button>
           </div>
         </section>
 

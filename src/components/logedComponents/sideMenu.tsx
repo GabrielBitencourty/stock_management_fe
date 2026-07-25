@@ -62,8 +62,6 @@ export default function SideMenu() {
           </Link>
         ))}
       </nav>
-
-      {/* Footer */}
       <footer className="border-t border-white/20 pt-5 text-xs text-white">
         <p>
           © Developed by{" "}

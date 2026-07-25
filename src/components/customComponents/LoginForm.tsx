@@ -114,9 +114,18 @@ export function LoginForm() {
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="h-12 w-full rounded-full bg-[#5C9EAD] font-semibold hover:bg-[#4f8a98]"
+        className="h-12 w-full rounded-full cursor-pointer bg-[#5C9EAD] font-semibold hover:bg-white hover:border-[#5C9EAD] duration-500 hover:text-[#5C9EAD]"
       >
         {isSubmitting ? "Signing in..." : "SIGN IN"}
+      </Button>
+
+      <Button
+        variant="outline"
+        className="h-12 w-full rounded-full border-[#5C9EAD] text-[#5C9EAD] font-semibold duration-500 hover:bg-[#4f8a98] hover:text-white"
+      >
+        <Link href="/signUp">
+          Don&apos;t have an account?
+        </Link>
       </Button>
     </form>
   );

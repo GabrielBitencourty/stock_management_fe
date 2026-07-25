@@ -1,30 +1,67 @@
-import {SignUpCard} from "@/components/customComponents/SignUpCard";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import Link from "next/link";
+
+import { SignUpCard } from "@/components/customComponents/SignUpCard";
+import { Button } from "@/components/ui/button";
 
 export default function SignUpPage() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#eef2f5]">
-      <Card className="grid h-160 w-full max-w-7xl overflow-hidden rounded-[28px] p-0 m-0 border-0 shadow-[0_20px_60px_rgba(0,0,0,0.12)] md:grid-cols-2">
-        <section className="flex items-center justify-center bg-white px-24">
-            <div className="w-full max-w-lg">
-                <SignUpCard />
-            </div>
+    <main className="flex min-h-screen items-center justify-center bg-background px-4 py-8 md:px-8">
+      <div
+        className="
+          w-full
+          max-w-7xl
+          overflow-hidden
+          rounded-2xl
+          bg-white
+          shadow-[0_20px_60px_rgba(0,0,0,0.12)]
+          md:grid
+          md:grid-cols-2
+        "
+      >
+        <section
+          className="
+            flex
+            items-center
+            justify-center
+            bg-white
+            px-6
+            py-10
+            sm:px-10
+            md:px-16
+            lg:px-24
+          "
+        >
+          <div className="w-full max-w-md">
+            <SignUpCard />
+          </div>
         </section>
-        <section className="flex items-center bg-linear-to-br from-[#67A8B6] via-[#5C9EAD] to-[#4E8D9A] px-24">
-            <div className="w-full max-w-lg flex flex-col gap-5">
-                <h1 className="text-[#EDF0DA] text-4xl font-bold">Join with Us!</h1>
-                <p className="text-[#EDF0DA]">Create your account and get access to all our features.</p>
-                <Button
-                    variant="outline"
-                    className="h-10 w-40 rounded-full border border-white bg-transparent text-lg font-semibold text-white transition-all duration-300 hover:bg-white hover:text-[#5C9EAD]"
-                > 
-                  <Link href="/signIn">Sign In?</Link>
-                </Button>
-            </div>
+
+        <section
+          className="
+            hidden
+            h-full
+            items-center
+            justify-center
+            bg-linear-to-br
+            from-[#67A8B6]
+            via-[#5C9EAD]
+            to-[#4E8D9A]
+            px-10
+            lg:flex
+            lg:px-24
+          "
+        >
+          <div className="max-w-md space-y-6">
+            <h1 className="text-4xl font-bold text-[#EDF0DA]">
+              Join with Us!
+            </h1>
+
+            <p className="text-lg leading-relaxed text-[#EDF0DA]/90">
+              Create your account and get access to all our features.
+            </p>
+          </div>
         </section>
-      </Card>
+      </div>
     </main>
   );
 }
