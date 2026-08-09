@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 
 import { signIn } from "@/services/authService";
 import { loginSchema } from "@/schemas/authSchema";
+import { ForgotPasswordCard } from "./ForgotPasswordComponent";
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
@@ -103,12 +104,7 @@ export function LoginForm() {
       </div>
 
       <div className="flex justify-end">
-        <Link
-          href="/forgot-password"
-          className="text-sm text-[#5C9EAD] transition-colors hover:underline"
-        >
-          Forgot your password?
-        </Link>
+        <ForgotPasswordCard />
       </div>
 
       <Button

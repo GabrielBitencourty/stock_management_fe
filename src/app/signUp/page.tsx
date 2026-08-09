@@ -1,7 +1,4 @@
-import Link from "next/link";
-
 import { SignUpCard } from "@/components/customComponents/SignUpCard";
-import { Button } from "@/components/ui/button";
 
 export default function SignUpPage() {
   return (

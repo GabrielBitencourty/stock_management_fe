@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { AssistenteButton } from "@/components/customComponents/AssistentButton";
+import { Toaster } from "sonner";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function RootLayout({
       className={`${poppins.variable} h-full antialiased`}
     >
       <AssistenteButton />
+      <Toaster position="top-center" />
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
