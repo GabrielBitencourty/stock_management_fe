@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { AssistenteButton } from "@/components/customComponents/AssistentButton";
+import { AssistentButton } from "@/components/logedComponents/AssistentButton";
 import { Toaster } from "sonner";
 
 const poppins = Poppins({
@@ -26,7 +26,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${poppins.variable} h-full antialiased`}
     >
-      <AssistenteButton />
+      <AssistentButton />
       <Toaster position="top-center" />
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

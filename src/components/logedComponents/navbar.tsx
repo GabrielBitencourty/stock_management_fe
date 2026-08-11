@@ -1,34 +1,98 @@
-"user client"
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarImage,
+} from "@/components/ui/avatar";
 
-import { Search } from "lucide-react"
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
-import { Input } from "../ui/input"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import {
+    User,
+    Settings,
+    Bell,
+    LogOut,
+    ChevronDown,
+} from "lucide-react";
 
 export default function Navbar() {
-  return (
-    <header className="absolute top-0 w-full shadow-md bg-[#5C9EAD] backdrop-blur">
-      <div className="container flex h-14 items-center justify-end">
-        <div className="relative mx-8 flex-1 max-w-2xl">
-          <Search
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-black"
-            size={18}
-          />
+    return (
+        <header className="fixed top-0 right-0 left-72 z-10 border-0 bg-white shadow-md">
+            <div className="flex h-14 w-full items-center justify-end px-6">
 
-          <Input
-            placeholder="Searching for..."
-            className="pl-10 h-10 w-full rounded-lg border-none bg-white text-black"
-          />
-        </div>
-        <div className="flex items-center gap-2">
-          <p className="text-sm font-semibold text-white">
-            Gabriel Bitencourt
-          </p>
-          <Avatar className="h-10 w-10">
-            <AvatarImage src="/avatar.png" alt="Gabriel" />
-            <AvatarFallback>GB</AvatarFallback>
-          </Avatar>
-        </div>
-      </div>
-    </header>
-  )
+                <DropdownMenu>
+                    <DropdownMenuTrigger>
+                        <button className="flex items-center gap-2 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-(--font-blue)">
+                            <p className="text-sm font-semibold text-(--font-blue)">
+                                Gabriel Bitencourt
+                            </p>
+
+                            <Avatar className="h-10 w-10">
+                                <AvatarImage
+                                    src="/avatar.png"
+                                    alt="Gabriel"
+                                />
+
+                                <AvatarFallback>
+                                    GB
+                                </AvatarFallback>
+                            </Avatar>
+
+                            <ChevronDown />
+
+                        </button>
+                    </DropdownMenuTrigger>
+
+                   <DropdownMenuContent
+    align="end"
+    className="w-56"
+>
+    <DropdownMenuGroup>
+        <DropdownMenuLabel>
+            <div className="flex flex-col">
+                <span className="font-semibold">
+                    Gabriel Bitencourt
+                </span>
+
+                <span className="text-xs font-normal text-slate-500">
+                    gabriel@email.com
+                </span>
+            </div>
+        </DropdownMenuLabel>
+
+        <DropdownMenuItem>
+            <User className="mr-2 h-4 w-4" />
+            <span>Minha conta</span>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem>
+            <Settings className="mr-2 h-4 w-4" />
+            <span>Configurações</span>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem>
+            <Bell className="mr-2 h-4 w-4" />
+            <span>Notificações</span>
+        </DropdownMenuItem>
+    </DropdownMenuGroup>
+
+    <DropdownMenuSeparator />
+
+    <DropdownMenuItem className="text-red-600 focus:text-red-600">
+        <LogOut className="mr-2 h-4 w-4" />
+        <span>Sair</span>
+    </DropdownMenuItem>
+</DropdownMenuContent>
+                </DropdownMenu>
+
+            </div>
+        </header>
+    );
 }
