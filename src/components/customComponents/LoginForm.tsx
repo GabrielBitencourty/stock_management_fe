@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { signIn } from "@/services/authService";
 import { loginSchema } from "@/schemas/authSchema";
 import { ForgotPasswordCard } from "./ForgotPasswordComponent";
+import { useRouter } from "next/navigation";
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
@@ -22,6 +23,7 @@ const inputClass =
   "h-12 w-full bg-slate-50 pl-10 transition-colors";
 
 export function LoginForm() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -39,6 +41,9 @@ export function LoginForm() {
   async function onSubmit(data: LoginFormData) {
     const response = await signIn(data);
     console.log(response);
+    if (response.statusCode === 200) {
+      router.push("/home");
+    }
   }
 
   return (

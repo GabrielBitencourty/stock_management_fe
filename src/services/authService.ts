@@ -14,13 +14,15 @@ export async function signIn(data: LoginFormData) {
         })
     });
 
-    const message = await response.json();
+    const result = await response.json()
+
+    console.log(result)
 
     if (response.status === 200) {
-        toast.success(message.message);
+        toast.success(result.message)
     } else {
-        toast.error(message.message);
+        toast.error(result.message)
     }
 
-    return response.json();
+    return result
 }
