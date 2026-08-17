@@ -26,9 +26,10 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${poppins.variable} h-full antialiased`}
     >
-      <AssistentButton />
-      <Toaster position="top-center" />
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">{children}
+        <AssistentButton />
+        <Toaster position="top-center" /> 
+      </body>
     </html>
   );
 }

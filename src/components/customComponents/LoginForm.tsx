@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-import { signIn } from "@/services/authService";
+import { signIn } from "@/services/signInServices";
 import { loginSchema } from "@/schemas/authSchema";
 import { ForgotPasswordCard } from "./ForgotPasswordComponent";
 import { useRouter } from "next/navigation";
