@@ -16,13 +16,13 @@ export async function signIn(data: LoginFormData) {
 
     const result = await response.json()
 
-    console.log(result)
-
     if (response.status === 200) {
         toast.success(result.message)
     } else {
         toast.error(result.message)
     }
+
+    localStorage.setItem("token", result.token);
 
     return result
 }
