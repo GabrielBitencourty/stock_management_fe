@@ -6,63 +6,60 @@ import SideMenu from "@/components/logedComponents/sideMenu";
 import {
     Search,
     Plus,
-    Package,
-    AlertTriangle,
-    Boxes,
+    ShoppingCart,
+    DollarSign,
+    CheckCircle2,
+    Clock3,
     MoreVertical,
     SlidersHorizontal,
+    CalendarDays,
     ArrowUpDown,
 } from "lucide-react";
 
-const products = [
+const sales = [
     {
-        id: 1,
-        name: "Notebook Gamer",
-        sku: "NB-001",
-        category: "Eletrônicos",
-        price: "R$ 4.599,90",
-        stock: 12,
-        status: "Ativo",
+        id: "#VND-001",
+        customer: "João Silva",
+        date: "02/09/2026 14:32",
+        payment: "Cartão de crédito",
+        value: "R$ 4.599,90",
+        status: "Concluída",
     },
     {
-        id: 2,
-        name: "Mouse Gamer RGB",
-        sku: "MS-002",
-        category: "Periféricos",
-        price: "R$ 149,90",
-        stock: 35,
-        status: "Ativo",
+        id: "#VND-002",
+        customer: "Maria Oliveira",
+        date: "02/09/2026 13:15",
+        payment: "PIX",
+        value: "R$ 439,80",
+        status: "Concluída",
     },
     {
-        id: 3,
-        name: "Teclado Mecânico",
-        sku: "TC-003",
-        category: "Periféricos",
-        price: "R$ 289,90",
-        stock: 4,
-        status: "Estoque baixo",
+        id: "#VND-003",
+        customer: "Carlos Souza",
+        date: "02/09/2026 11:47",
+        payment: "Cartão de débito",
+        value: "R$ 289,90",
+        status: "Pendente",
     },
     {
-        id: 4,
-        name: "Headset Gamer",
-        sku: "HS-004",
-        category: "Áudio",
-        price: "R$ 249,90",
-        stock: 18,
-        status: "Ativo",
+        id: "#VND-004",
+        customer: "Ana Costa",
+        date: "01/09/2026 18:22",
+        payment: "PIX",
+        value: "R$ 749,90",
+        status: "Concluída",
     },
     {
-        id: 5,
-        name: "Webcam Full HD",
-        sku: "WC-005",
-        category: "Acessórios",
-        price: "R$ 199,90",
-        stock: 0,
-        status: "Sem estoque",
+        id: "#VND-005",
+        customer: "Pedro Santos",
+        date: "01/09/2026 16:08",
+        payment: "Dinheiro",
+        value: "R$ 149,90",
+        status: "Cancelada",
     },
 ];
 
-export default function ProductsPage() {
+export default function SalesPage() {
     return (
         <div className="min-h-screen w-full bg-slate-50">
             <SideMenu />
@@ -75,11 +72,11 @@ export default function ProductsPage() {
                     <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                         <div>
                             <h1 className="text-2xl font-bold text-slate-900">
-                                Produtos
+                                Vendas
                             </h1>
 
                             <p className="mt-1 text-sm text-slate-500">
-                                Gerencie seus produtos, estoque e informações.
+                                Acompanhe suas vendas e movimentações financeiras.
                             </p>
                         </div>
 
@@ -88,27 +85,32 @@ export default function ProductsPage() {
                             style={{ backgroundColor: "#5C9EAD" }}
                         >
                             <Plus size={18} />
-                            Novo produto
+                            Nova venda
                         </button>
                     </div>
 
                     {/* STATS */}
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
 
+                        {/* VENDAS */}
                         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                             <div className="flex items-center justify-between">
                                 <div>
                                     <p className="text-sm text-slate-500">
-                                        Total de produtos
+                                        Vendas hoje
                                     </p>
 
                                     <h2 className="mt-2 text-2xl font-bold text-slate-900">
-                                        128
+                                        24
                                     </h2>
+
+                                    <p className="mt-1 text-xs font-medium text-emerald-600">
+                                        +12,5% comparado a ontem
+                                    </p>
                                 </div>
 
                                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-slate-100">
-                                    <Package
+                                    <ShoppingCart
                                         size={21}
                                         className="text-slate-600"
                                     />
@@ -116,20 +118,25 @@ export default function ProductsPage() {
                             </div>
                         </div>
 
+                        {/* FATURAMENTO */}
                         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                             <div className="flex items-center justify-between">
                                 <div>
                                     <p className="text-sm text-slate-500">
-                                        Produtos ativos
+                                        Faturamento hoje
                                     </p>
 
                                     <h2 className="mt-2 text-2xl font-bold text-slate-900">
-                                        114
+                                        R$ 8.429,50
                                     </h2>
+
+                                    <p className="mt-1 text-xs font-medium text-emerald-600">
+                                        +8,2% comparado a ontem
+                                    </p>
                                 </div>
 
                                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50">
-                                    <Boxes
+                                    <DollarSign
                                         size={21}
                                         className="text-emerald-600"
                                     />
@@ -137,20 +144,51 @@ export default function ProductsPage() {
                             </div>
                         </div>
 
+                        {/* CONCLUÍDAS */}
                         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                             <div className="flex items-center justify-between">
                                 <div>
                                     <p className="text-sm text-slate-500">
-                                        Estoque baixo
+                                        Concluídas
                                     </p>
 
                                     <h2 className="mt-2 text-2xl font-bold text-slate-900">
-                                        7
+                                        21
                                     </h2>
+
+                                    <p className="mt-1 text-xs text-slate-400">
+                                        87,5% das vendas
+                                    </p>
+                                </div>
+
+                                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50">
+                                    <CheckCircle2
+                                        size={21}
+                                        className="text-emerald-600"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* PENDENTES */}
+                        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p className="text-sm text-slate-500">
+                                        Pendentes
+                                    </p>
+
+                                    <h2 className="mt-2 text-2xl font-bold text-slate-900">
+                                        3
+                                    </h2>
+
+                                    <p className="mt-1 text-xs text-amber-500">
+                                        Aguardando pagamento
+                                    </p>
                                 </div>
 
                                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50">
-                                    <AlertTriangle
+                                    <Clock3
                                         size={21}
                                         className="text-amber-500"
                                     />
@@ -160,13 +198,14 @@ export default function ProductsPage() {
 
                     </div>
 
-                    {/* PRODUCTS */}
+                    {/* SALES TABLE */}
                     <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
 
                         {/* TOOLBAR */}
-                        <div className="flex flex-col gap-4 border-b border-slate-200 p-5 lg:flex-row lg:items-center lg:justify-between">
+                        <div className="flex flex-col gap-4 border-b border-slate-200 p-5 xl:flex-row xl:items-center xl:justify-between">
 
-                            <div className="relative w-full lg:max-w-md">
+                            {/* SEARCH */}
+                            <div className="relative w-full xl:max-w-md">
                                 <Search
                                     size={18}
                                     className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
@@ -174,16 +213,22 @@ export default function ProductsPage() {
 
                                 <input
                                     type="text"
-                                    placeholder="Buscar produto..."
+                                    placeholder="Buscar por venda ou cliente..."
                                     className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-[#5C9EAD] focus:ring-2 focus:ring-[#5C9EAD]/20"
                                 />
                             </div>
 
-                            <div className="flex gap-2">
+                            {/* FILTERS */}
+                            <div className="flex flex-wrap gap-2">
+
+                                <button className="flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50">
+                                    <CalendarDays size={17} />
+                                    Período
+                                </button>
 
                                 <button className="flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50">
                                     <SlidersHorizontal size={17} />
-                                    Filtros
+                                    Status
                                 </button>
 
                                 <button className="flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50">
@@ -196,28 +241,28 @@ export default function ProductsPage() {
 
                         {/* TABLE */}
                         <div className="overflow-x-auto">
-                            <table className="w-full min-w-[850px]">
+                            <table className="w-full min-w-[900px]">
 
                                 <thead className="bg-slate-50">
                                     <tr>
                                         <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                                            Produto
+                                            Venda
                                         </th>
 
                                         <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                                            SKU
+                                            Cliente
                                         </th>
 
                                         <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                                            Categoria
+                                            Data
                                         </th>
 
                                         <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                                            Preço
+                                            Pagamento
                                         </th>
 
                                         <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                                            Estoque
+                                            Valor
                                         </th>
 
                                         <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
@@ -230,71 +275,63 @@ export default function ProductsPage() {
 
                                 <tbody className="divide-y divide-slate-100">
 
-                                    {products.map((product) => (
+                                    {sales.map((sale) => (
                                         <tr
-                                            key={product.id}
+                                            key={sale.id}
                                             className="transition hover:bg-slate-50/70"
                                         >
 
-                                            {/* PRODUCT */}
+                                            {/* SALE */}
                                             <td className="px-6 py-4">
                                                 <div className="flex items-center gap-3">
 
                                                     <div
-                                                        className="flex h-11 w-11 items-center justify-center rounded-xl"
+                                                        className="flex h-10 w-10 items-center justify-center rounded-xl"
                                                         style={{
                                                             backgroundColor:
                                                                 "#5C9EAD20",
                                                         }}
                                                     >
-                                                        <Package
-                                                            size={20}
+                                                        <ShoppingCart
+                                                            size={18}
                                                             style={{
                                                                 color: "#5C9EAD",
                                                             }}
                                                         />
                                                     </div>
 
-                                                    <div>
-                                                        <p className="font-semibold text-slate-800">
-                                                            {product.name}
-                                                        </p>
-
-                                                        <p className="text-xs text-slate-400">
-                                                            ID #{product.id}
-                                                        </p>
-                                                    </div>
+                                                    <span className="font-semibold text-slate-800">
+                                                        {sale.id}
+                                                    </span>
 
                                                 </div>
                                             </td>
 
-                                            {/* SKU */}
-                                            <td className="px-6 py-4 text-sm text-slate-600">
-                                                {product.sku}
-                                            </td>
-
-                                            {/* CATEGORY */}
-                                            <td className="px-6 py-4 text-sm text-slate-600">
-                                                {product.category}
-                                            </td>
-
-                                            {/* PRICE */}
-                                            <td className="px-6 py-4 text-sm font-semibold text-slate-800">
-                                                {product.price}
-                                            </td>
-
-                                            {/* STOCK */}
+                                            {/* CUSTOMER */}
                                             <td className="px-6 py-4">
-                                                <span
-                                                    className={`text-sm font-semibold ${
-                                                        product.stock === 0
-                                                            ? "text-red-500"
-                                                            : product.stock <= 5
-                                                            ? "text-amber-500"
-                                                            : "text-slate-700"
-                                                    }`}
-                                                >
-                                                    {product.stock} unidades
+                                                <span className="text-sm font-medium text-slate-700">
+                                                    {sale.customer}
+                                                </span>
+                                            </td>
+
+                                            {/* DATE */}
+                                            <td className="px-6 py-4">
+                                                <span className="text-sm text-slate-500">
+                                                    {sale.date}
+                                                </span>
+                                            </td>
+
+                                            {/* PAYMENT */}
+                                            <td className="px-6 py-4">
+                                                <span className="text-sm text-slate-600">
+                                                    {sale.payment}
+                                                </span>
+                                            </td>
+
+                                            {/* VALUE */}
+                                            <td className="px-6 py-4">
+                                                <span className="text-sm font-bold text-slate-800">
+                                                    {sale.value}
                                                 </span>
                                             </td>
 
@@ -302,15 +339,14 @@ export default function ProductsPage() {
                                             <td className="px-6 py-4">
                                                 <span
                                                     className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
-                                                        product.status === "Ativo"
+                                                        sale.status === "Concluída"
                                                             ? "bg-emerald-50 text-emerald-600"
-                                                            : product.status ===
-                                                              "Estoque baixo"
+                                                            : sale.status === "Pendente"
                                                             ? "bg-amber-50 text-amber-600"
                                                             : "bg-red-50 text-red-500"
                                                     }`}
                                                 >
-                                                    {product.status}
+                                                    {sale.status}
                                                 </span>
                                             </td>
 
@@ -325,7 +361,6 @@ export default function ProductsPage() {
                                     ))}
 
                                 </tbody>
-
                             </table>
                         </div>
 
@@ -341,33 +376,37 @@ export default function ProductsPage() {
                                 <span className="font-semibold text-slate-700">
                                     128
                                 </span>{" "}
-                                produtos
+                                vendas
                             </p>
 
                             <div className="flex gap-2">
-                                <button className="rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-500 hover:bg-slate-50">
+
+                                <button className="rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-500 transition hover:bg-slate-50">
                                     Anterior
                                 </button>
 
                                 <button
                                     className="rounded-lg px-3 py-2 text-sm font-semibold text-white"
-                                    style={{ backgroundColor: "#5C9EAD" }}
+                                    style={{
+                                        backgroundColor: "#5C9EAD",
+                                    }}
                                 >
                                     1
                                 </button>
 
-                                <button className="rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-500 hover:bg-slate-50">
+                                <button className="rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-500 transition hover:bg-slate-50">
                                     2
                                 </button>
 
-                                <button className="rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-500 hover:bg-slate-50">
+                                <button className="rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-500 transition hover:bg-slate-50">
                                     Próximo
                                 </button>
-                            </div>
 
+                            </div>
                         </div>
 
                     </div>
+
                 </div>
             </main>
         </div>
