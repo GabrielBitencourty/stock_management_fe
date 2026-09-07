@@ -17,10 +17,21 @@ export async function signIn(data: LoginFormData) {
     const result = await response.json()
 
     if (response.status === 200) {
-        toast.success(result.message)
-    } else {
-        toast.error(result.message)
+            toast.success(result.message, {
+                style: {
+                backgroundColor: '#5EA0AE',
+                color: '#fff'
+                }
+            })
+        } else {
+            toast.error(result.message, {
+                style: {
+                backgroundColor: '#ef4444',
+                color: '#fff'
+                }
+        })
     }
+
 
     localStorage.setItem("token", result.token);
 
