@@ -1,7 +1,10 @@
-"use client";
+"use client"
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import AuthLoading from "@/components/customComponents/AuthLoading";
+
+type AuthStatus = "checking" | "success" | "error";
 
 export default function ProtectedLayout({
     children,
@@ -10,13 +13,66 @@ export default function ProtectedLayout({
 }) {
     const router = useRouter();
 
-    useEffect(() => {
-        const token = localStorage.getItem("token");
+    const [status, setStatus] = useState<AuthStatus>("checking");
 
-        if (!token) {
-            router.replace("/signIn");
+    useEffect(() => {
+        async function validateToken() {
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+                setStatus("error");
+
+                setTimeout(() => {
+                    router.replace("/signIn");
+                }, 1000);
+
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `${process.env.NEXT_PUBLIC_API_URL}/authentication/validateToken`,
+                    {
+                        method: "POST",
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
+                if (!response.ok) {
+                    localStorage.removeItem("token");
+
+                    setStatus("error");
+
+                    setTimeout(() => {
+                        router.replace("/signIn");
+                    }, 1200);
+
+                    return;
+                }
+
+                setStatus("success");
+
+            } catch (error) {
+                console.error("Erro ao validar token:", error);
+
+                localStorage.removeItem("token");
+
+                setStatus("error");
+
+                setTimeout(() => {
+                    router.replace("/signIn");
+                }, 1200);
+            }
         }
+
+        validateToken();
     }, [router]);
 
-    return children;
+    if (status !== "success") {
+        return <AuthLoading status={status} />;
+    }
+
+    return <>{children}</>;
 }
