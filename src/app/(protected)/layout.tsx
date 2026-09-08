@@ -31,7 +31,7 @@ export default function ProtectedLayout({
 
             try {
                 const response = await fetch(
-                    `${process.env.NEXT_PUBLIC_API_URL}/authentication/validate`,
+                    `${process.env.NEXT_PUBLIC_API_URL}/authentication/validateToken`,
                     {
                         method: "GET",
                         headers: {
