@@ -39,10 +39,20 @@ export function LoginForm() {
   });
 
   async function onSubmit(data: LoginFormData) {
-    const response = await signIn(data);
-    console.log(response);
-    if (response.statusCode === 200) {
-      router.push("/home");
+    try {
+      const response = await signIn(data);
+
+      console.log("Login response:", response);
+
+      if (response.statusCode === 200) {
+        router.push("/home");
+        return;
+      }
+
+      console.log("Login failed:", response);
+
+    } catch (error) {
+      console.error("Error while signing in:", error);
     }
   }
 

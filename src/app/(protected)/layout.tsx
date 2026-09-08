@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import AuthLoading from "@/components/customComponents/AuthLoading2";
+import AuthLoading from "@/components/customComponents/AuthLoading";
 
 type AuthStatus = "checking" | "success" | "error";
 
@@ -33,7 +33,7 @@ export default function ProtectedLayout({
                 const response = await fetch(
                     `${process.env.NEXT_PUBLIC_API_URL}/authentication/validateToken`,
                     {
-                        method: "GET",
+                        method: "POST",
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
