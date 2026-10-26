@@ -74,6 +74,9 @@ type ModalMode = "create" | "edit";
 export default function ProductsPage() {
     const [products, setProducts] = useState<Product[]>([]);
     const [search, setSearch] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const ITEMS_PER_PAGE = 6;
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -187,6 +190,43 @@ export default function ProductsPage() {
             );
         });
     }, [products, search]);
+
+    // Reinicia a paginação sempre que o usuário altera a pesquisa.
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [search]);
+
+    const totalPages = Math.ceil(
+        filteredProducts.length / ITEMS_PER_PAGE
+    );
+
+    const paginatedProducts = useMemo(() => {
+        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+
+        return filteredProducts.slice(
+            startIndex,
+            startIndex + ITEMS_PER_PAGE
+        );
+    }, [filteredProducts, currentPage]);
+
+    const firstItem =
+        filteredProducts.length === 0
+            ? 0
+            : (currentPage - 1) * ITEMS_PER_PAGE + 1;
+
+    const lastItem = Math.min(
+        currentPage * ITEMS_PER_PAGE,
+        filteredProducts.length
+    );
+
+    // Mantém a página atual válida quando produtos são excluídos.
+    useEffect(() => {
+        const lastAvailablePage = Math.max(totalPages, 1);
+
+        if (currentPage > lastAvailablePage) {
+            setCurrentPage(lastAvailablePage);
+        }
+    }, [currentPage, totalPages]);
 
     const formatPrice = (price: number) => {
         return new Intl.NumberFormat("pt-BR", {
@@ -566,9 +606,7 @@ export default function ProductsPage() {
                         </button>
                     </div>
 
-                    {/* Table Card */}
                     <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-                        {/* Search */}
                         <div className="flex flex-col gap-4 border-b border-slate-200 p-5 sm:flex-row sm:items-center sm:justify-between">
                             <div>
                                 <h2 className="font-semibold text-slate-800">
@@ -603,7 +641,6 @@ export default function ProductsPage() {
                             </div>
                         </div>
 
-                        {/* Loading */}
                         {loading && (
                             <div className="flex min-h-[400px] flex-col items-center justify-center gap-3">
                                 <Loader2
@@ -617,7 +654,6 @@ export default function ProductsPage() {
                             </div>
                         )}
 
-                        {/* Error */}
                         {!loading && error && (
                             <div className="flex min-h-[400px] flex-col items-center justify-center gap-4 px-6 text-center">
                                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-50">
@@ -647,7 +683,6 @@ export default function ProductsPage() {
                             </div>
                         )}
 
-                        {/* Empty */}
                         {!loading &&
                             !error &&
                             filteredProducts.length ===
@@ -689,7 +724,6 @@ export default function ProductsPage() {
                                 </div>
                             )}
 
-                        {/* Table */}
                         {!loading &&
                             !error &&
                             filteredProducts.length >
@@ -727,7 +761,7 @@ export default function ProductsPage() {
                                         </thead>
 
                                         <tbody>
-                                            {filteredProducts.map(
+                                            {paginatedProducts.map(
                                                 (
                                                     product
                                                 ) => {
@@ -788,7 +822,6 @@ export default function ProductsPage() {
                                                                 </div>
                                                             </td>
 
-                                                            {/* ID */}
                                                             <td className="px-5 py-4">
                                                                 <div className="flex max-w-[220px] flex-col">
                                                                     <span className="truncate font-mono text-sm text-slate-700">
@@ -810,7 +843,6 @@ export default function ProductsPage() {
                                                                 </div>
                                                             </td>
 
-                                                            {/* Category */}
                                                             <td className="px-5 py-4">
                                                                 <span className="text-sm text-slate-600">
                                                                     {
@@ -819,7 +851,6 @@ export default function ProductsPage() {
                                                                 </span>
                                                             </td>
 
-                                                            {/* Price */}
                                                             <td className="px-5 py-4">
                                                                 <div>
                                                                     <p className="text-sm font-semibold text-slate-800">
@@ -837,7 +868,6 @@ export default function ProductsPage() {
                                                                 </div>
                                                             </td>
 
-                                                            {/* Stock */}
                                                             <td className="px-5 py-4">
                                                                 <span className="text-sm font-medium text-slate-700">
                                                                     {
@@ -846,7 +876,6 @@ export default function ProductsPage() {
                                                                 </span>
                                                             </td>
 
-                                                            {/* Status */}
                                                             <td className="px-5 py-4">
                                                                 <span
                                                                     className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${status.className}`}
@@ -857,7 +886,6 @@ export default function ProductsPage() {
                                                                 </span>
                                                             </td>
 
-                                                            {/* Actions */}
                                                             <td className="relative px-5 py-4">
                                                                 <button
                                                                     type="button"
@@ -933,48 +961,91 @@ export default function ProductsPage() {
                                 </div>
                             )}
 
-                        {/* Footer */}
                         {!loading &&
                             !error &&
-                            filteredProducts.length >
-                                0 && (
-                                <div className="flex flex-col gap-2 border-t border-slate-200 px-5 py-4 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-                                    <span>
+                            filteredProducts.length > 0 && (
+                                <div className="flex flex-col gap-4 border-t border-slate-200 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+                                    <div className="text-xs text-slate-500">
                                         Mostrando{" "}
                                         <strong className="text-slate-700">
-                                            {
-                                                filteredProducts.length
-                                            }
+                                            {firstItem}–{lastItem}
                                         </strong>{" "}
                                         de{" "}
                                         <strong className="text-slate-700">
-                                            {
-                                                products.length
-                                            }
+                                            {filteredProducts.length}
                                         </strong>{" "}
                                         produtos
-                                    </span>
+                                    </div>
 
-                                    {search && (
+                                    <div className="flex flex-wrap items-center gap-2">
+                                        {search && (
+                                            <button
+                                                type="button"
+                                                onClick={() => setSearch("")}
+                                                className="mr-2 text-xs font-medium text-[#5C9EAD] hover:underline"
+                                            >
+                                                Limpar pesquisa
+                                            </button>
+                                        )}
+
                                         <button
                                             type="button"
                                             onClick={() =>
-                                                setSearch(
-                                                    ""
+                                                setCurrentPage((page) =>
+                                                    Math.max(1, page - 1)
                                                 )
                                             }
-                                            className="font-medium text-[#5C9EAD] hover:underline"
+                                            disabled={currentPage === 1}
+                                            className="rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-600 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+                                            aria-label="Página anterior"
                                         >
-                                            Limpar pesquisa
+                                            Anterior
                                         </button>
-                                    )}
+
+                                        {Array.from(
+                                            { length: totalPages },
+                                            (_, index) => index + 1
+                                        ).map((page) => (
+                                            <button
+                                                key={page}
+                                                type="button"
+                                                onClick={() => setCurrentPage(page)}
+                                                aria-label={`Página ${page}`}
+                                                aria-current={
+                                                    currentPage === page
+                                                        ? "page"
+                                                        : undefined
+                                                }
+                                                className={`h-9 min-w-9 rounded-lg px-3 text-sm font-medium transition ${
+                                                    currentPage === page
+                                                        ? "bg-[#5C9EAD] text-white shadow-sm"
+                                                        : "border border-slate-200 text-slate-600 hover:bg-slate-50"
+                                                }`}
+                                            >
+                                                {page}
+                                            </button>
+                                        ))}
+
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                setCurrentPage((page) =>
+                                                    Math.min(totalPages, page + 1)
+                                                )
+                                            }
+                                            disabled={currentPage >= totalPages}
+                                            className="rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-600 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+                                            aria-label="Próxima página"
+                                        >
+                                            Próxima
+                                        </button>
+                                    </div>
                                 </div>
                             )}
                     </div>
                 </div>
             </main>
 
-            {/* Product Modal */}
             {isProductModalOpen && (
                 <div
                     className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4 backdrop-blur-sm"
@@ -988,7 +1059,7 @@ export default function ProductsPage() {
                     }}
                 >
                     <div className="flex max-h-[92vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl">
-                        {/* Modal Header */}
+
                         <div className="flex items-center justify-between border-b border-slate-200 px-6 py-5">
                             <div>
                                 <h2 className="text-lg font-bold text-slate-800">
@@ -1017,7 +1088,6 @@ export default function ProductsPage() {
                             </button>
                         </div>
 
-                        {/* Form */}
                         <form
                             onSubmit={
                                 handleSaveProduct
@@ -1025,7 +1095,7 @@ export default function ProductsPage() {
                             className="overflow-y-auto"
                         >
                             <div className="grid grid-cols-1 gap-5 p-6 sm:grid-cols-2">
-                                {/* Product Name */}
+
                                 <div className="sm:col-span-2">
                                     <label className="mb-2 block text-sm font-medium text-slate-700">
                                         Nome do produto *
@@ -1049,7 +1119,6 @@ export default function ProductsPage() {
                                     />
                                 </div>
 
-                                {/* Product ID */}
                                 <div>
                                     <label className="mb-2 block text-sm font-medium text-slate-700">
                                         ID do produto *
@@ -1080,7 +1149,6 @@ export default function ProductsPage() {
                                     )}
                                 </div>
 
-                                {/* Brand */}
                                 <div>
                                     <label className="mb-2 block text-sm font-medium text-slate-700">
                                         Marca
@@ -1103,7 +1171,6 @@ export default function ProductsPage() {
                                     />
                                 </div>
 
-                                {/* Category */}
                                 <div>
                                     <label className="mb-2 block text-sm font-medium text-slate-700">
                                         Categoria
@@ -1126,7 +1193,6 @@ export default function ProductsPage() {
                                     />
                                 </div>
 
-                                {/* Batch */}
                                 <div>
                                     <label className="mb-2 block text-sm font-medium text-slate-700">
                                         Lote
@@ -1149,7 +1215,6 @@ export default function ProductsPage() {
                                     />
                                 </div>
 
-                                {/* Price */}
                                 <div>
                                     <label className="mb-2 block text-sm font-medium text-slate-700">
                                         Preço
@@ -1174,7 +1239,6 @@ export default function ProductsPage() {
                                     />
                                 </div>
 
-                                {/* Cost */}
                                 <div>
                                     <label className="mb-2 block text-sm font-medium text-slate-700">
                                         Custo
